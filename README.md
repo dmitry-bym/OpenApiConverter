@@ -11,7 +11,7 @@ dotnet run -- --help
 ```
   -i, --input      Required. Input file to convert.
 
-  -o, --output     Output file
+  -o, --output     Output file ( if not specified will print to the console )
 
   -v, --version    Required. Set output file version 2.0 / 2 or 3.0 / 3.
 
