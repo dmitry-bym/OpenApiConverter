@@ -7,7 +7,7 @@ namespace OpenApiConverter
         [Option('i', "input", Required = true, HelpText = "Input file to convert.")]
         public string InputPath { get; set; }
 
-        [Option('o', "output", Required = false, HelpText = "Output file")]
+        [Option('o', "output", Required = false, HelpText = "Output file. If not specified will print to the console.")]
         public string OutputPath { get; set; }
         
         [Option('v', "version", Required = true, HelpText = "Set output file version 2.0 / 2 or 3.0 / 3.")]

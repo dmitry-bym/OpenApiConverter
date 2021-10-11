@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+    
+jobs:
+  release:
+    if: github.event.base_ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Build and publish to folder 
+      shell: pwsh
+      run: ./publish.ps1
+      
+    - name: Create release
+      uses: ncipollo/release-action@v1
+      with:
+        name: Release ${{ github.ref }}
+        artifacts: "release.tar.gz,foo/*.txt"
+        bodyFile: "body.md"

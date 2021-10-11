@@ -32,7 +32,7 @@ static OpenApiSpecVersion ParseVersion(string version)
     {
         "2.0" or "2" => OpenApiSpecVersion.OpenApi2_0,
         "3.0" or "3" => OpenApiSpecVersion.OpenApi3_0,
-        _ => throw new ArgumentOutOfRangeException()
+        _ => throw new ArgumentException("Must have correct value.", nameof(version))
     };
 }
 
@@ -42,14 +42,14 @@ static OpenApiFormat ParseFormat(string format)
     {
         "json" or "j" => OpenApiFormat.Json,
         "yaml" or "yml" or "y" => OpenApiFormat.Yaml,
-        _ => throw new ArgumentOutOfRangeException()
+        _ => throw new ArgumentException("Must have correct value.", nameof(format))
     };
 }
 
 static void Process(string input, Action<string> output, OpenApiSpecVersion version, OpenApiFormat format)
 {
-    var readStream = File.OpenRead(input);
-    var api = new OpenApiStreamReader().Read(readStream, out var error);
+    using var readStream = File.OpenRead(input);
+    var api = new OpenApiStreamReader().Read(readStream, out _);
     var docString = api.Serialize(version, format);
     output(docString);
 }
