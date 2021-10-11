@@ -16,9 +16,13 @@ jobs:
     - name: Build and publish to folder 
       shell: pwsh
       run: ./publish.ps1
+
+    - name: Get the version
+      id: version
+      run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       
     - name: Create release
       uses: ncipollo/release-action@v1
       with:
-        name: Release ${{ github.ref }}
-        artifacts: "release/*"
+        name: Release ${{ steps.version.outputs.VERSION }}
+        artifacts: "release/*"`
